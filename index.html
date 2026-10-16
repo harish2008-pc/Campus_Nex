@@ -83,8 +83,78 @@
 
 <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full">
 
+  <!-- HOME DASHBOARD -->
+  <section id="section-home" class="space-y-6">
+    <!-- Hero -->
+    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-orange-700 text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <p id="home-date" class="text-xs text-orange-200 font-semibold uppercase tracking-wider"></p>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-1"><span id="home-greet"></span>, <span id="home-name"></span> <span class="rmp-float">👋</span></h2>
+          <p id="home-sub" class="text-slate-300 text-sm mt-1 font-medium"></p>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+          <button onclick="switchTab('canteen')" class="rmp-btn bg-orange-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-orange-600 shadow-md">🍔 Order food</button>
+          <button onclick="toggleProfileEdit()" class="rmp-btn bg-white/10 border border-white/20 text-white px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-white/20">✏️ Edit profile</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit profile form -->
+    <div id="profile-edit" class="hidden bg-white p-5 rounded-3xl border border-orange-100 shadow-sm space-y-3">
+      <h3 class="font-bold text-slate-900 text-sm">Edit student details</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+        <input id="pf-name" placeholder="Full name" aria-label="Full name" class="px-3 py-2 rounded-xl border border-slate-200">
+        <input id="pf-roll" placeholder="Roll number" aria-label="Roll number" class="px-3 py-2 rounded-xl border border-slate-200">
+        <select id="pf-dept" aria-label="Department" class="px-3 py-2 rounded-xl border border-slate-200 bg-white"><option>CSE Core</option><option>CSE AIML</option><option>IT</option><option>ECE</option></select>
+        <select id="pf-year" aria-label="Year" class="px-3 py-2 rounded-xl border border-slate-200 bg-white"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+        <select id="pf-sec" aria-label="Section" class="px-3 py-2 rounded-xl border border-slate-200 bg-white"><option>Section A</option><option>Section B</option><option>Section C</option><option>Section D</option></select>
+        <select id="pf-mode" aria-label="Residence" class="px-3 py-2 rounded-xl border border-slate-200 bg-white"><option>Hostel</option><option>Day Scholar</option></select>
+        <input id="pf-email" type="email" placeholder="Email" aria-label="Email" class="px-3 py-2 rounded-xl border border-slate-200">
+        <input id="pf-mentor" placeholder="Mentor name" aria-label="Mentor" class="px-3 py-2 rounded-xl border border-slate-200">
+      </div>
+      <button onclick="saveProfile()" class="rmp-btn bg-orange-600 text-white px-5 py-2 rounded-xl text-xs font-semibold hover:bg-orange-700 shadow-sm">Save details</button>
+    </div>
+
+    <!-- KPI cards -->
+    <div id="home-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Student profile -->
+      <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-4">
+        <h3 class="font-bold text-slate-900">Student profile</h3>
+        <div id="home-profile"></div>
+      </div>
+      <!-- Attendance -->
+      <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-4 lg:col-span-2">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-bold text-slate-900">Attendance tracker</h3>
+          <span id="home-att-badge" class="text-xs font-bold px-3 py-1 rounded-full border"></span>
+        </div>
+        <div id="home-attendance" class="space-y-3"></div>
+        <p class="text-[11px] text-slate-400">Tap ✓ or ✕ after each class to keep your attendance up to date.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900">📅 Today's schedule</h3>
+        <div id="home-schedule" class="space-y-2"></div>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900">⏳ Upcoming exams</h3>
+        <div id="home-exams" class="space-y-2"></div>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border border-orange-100 shadow-sm space-y-3">
+        <h3 class="font-bold text-slate-900">⚡ Quick actions</h3>
+        <div id="home-actions" class="grid grid-cols-2 gap-2"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- BREAK BITE (CANTEEN) -->
-  <section id="section-canteen" class="space-y-6">
+  <section id="section-canteen" class="space-y-6 hidden">
     <div class="bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white p-6 rounded-3xl shadow-lg relative overflow-hidden">
       <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
       <h2 class="text-2xl font-extrabold tracking-tight">Break bite CAMPUS NEX <span class="rmp-float">🍔</span></h2>
@@ -485,11 +555,12 @@ function renderAvatar() {
   $('avatar-btn').innerHTML = avatar ? `<img src="${avatar}" alt="Your profile photo" class="w-full h-full object-cover">` : '👤';
   $('avatar-del').classList.toggle('hidden', !avatar);
 }
-function changeAvatar() { pickImage(256, d => { avatar = d; save('avatar', avatar); renderAvatar(); toast('📷 Profile photo updated'); }); }
-function removeAvatar() { avatar = null; save('avatar', null); renderAvatar(); toast('Profile photo removed'); }
+function changeAvatar() { pickImage(256, d => { avatar = d; save('avatar', avatar); renderAvatar(); renderHome(); toast('📷 Profile photo updated'); }); }
+function removeAvatar() { avatar = null; save('avatar', null); renderAvatar(); renderHome(); toast('Profile photo removed'); }
 
-/* ---------- Navigation Tabs (With Updated Headings) ---------- */
+/* ---------- Navigation Tabs ---------- */
 const tabs = [
+  ['home','🚀 Home'],
   ['canteen','🍔 Break bite'], 
   ['bus','🚌 Bus radar'], 
   ['hostel','🏠 Hostel Portal'],
@@ -504,6 +575,7 @@ $('tab-bar').innerHTML = tabs.map(([id, label]) =>
   `<button role="tab" id="tab-${id}" onclick="switchTab('${id}')" class="rmp-btn tab-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all duration-200">${label}</button>`).join('');
 
 function switchTab(tabId) {
+  if (!tabs.some(([id]) => id === tabId)) tabId = 'home';
   tabs.forEach(([id]) => {
     const on = id === tabId;
     $('section-' + id).classList.toggle('hidden', !on);
@@ -513,6 +585,7 @@ function switchTab(tabId) {
     b.className = 'rmp-btn tab-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all duration-200 ' +
       (on ? 'bg-orange-600 text-white shadow-md' : 'text-slate-600 hover:bg-orange-50');
   });
+  if (tabId === 'home') renderHome();
   save('tab', tabId);
 }
 
@@ -687,7 +760,7 @@ function renderBus() {
   $('active-bus-status').textContent = activeBus.status;
   $('bus-start').textContent = activeBus.start;
   $('bus-current-stop').textContent = activeBus.current;
-  $('bus-progress').style.width = activeBus.progress + '\%';$('bus-icon').style.left = activeBus.progress + '%';
+  $('bus-progress').style.width = activeBus.progress + '%';$('bus-icon').style.left = activeBus.progress + '%';
   
   const occ = $('bus-occupancy-badge');
   occ.textContent = activeBus.occupancy + ' Occupancy';
@@ -759,7 +832,7 @@ function checkHostelAuth() {
 }
 
 function loginHostel() {
-  const id = $('hostel-id').value, pass =$('hostel-pass').value;
+  const id = $('hostel-id').value, pass = $('hostel-pass').value;
   if (id === 'HST101' && pass === 'hostel123') {
     isHostelLoggedIn = true; save('hostel_login', true);
     checkHostelAuth(); toast('Logged into Hostel Portal');
@@ -948,7 +1021,7 @@ let chatData = load('chats', [
 ]);
 
 function filterChat() {
-  const yr = $('chat-year').value, crs = $('chat-course').value, sec =$('chat-sec').value;
+  const yr = $('chat-year').value, crs = $('chat-course').value, sec = $('chat-sec').value;
   $('chat-filter-badge').textContent = `${yr} | ${crs} | ${sec}`;
   const filtered = chatData.filter(c => c.year === yr && c.course === crs && c.sec === sec);
   $('chat-messages').innerHTML = filtered.map(m => `
@@ -991,7 +1064,7 @@ function renderLedger() {
         <td class="p-3 text-slate-500">${item.date}</td>
         <td class="p-3 text-slate-500">${item.method}</td>
         <td class="p-3 font-bold text-slate-900">${inr(item.amt)}</td>
-        <td class="p-3">${item.receipt ? `<button onclick="viewPhoto('${item.receipt}',${idx})" class="text-orange-600 font-semibold underline">View</button>` : `<button onclick="attachReceipt(${idx})" class="text-slate-400 hover:text-slate-600">+ Add</button>`}</td>
+        <td class="p-3">${item.receipt ? `<button onclick="viewPhoto(${idx})" class="text-orange-600 font-semibold underline">View</button>` : `<button onclick="attachReceipt(${idx})" class="text-slate-400 hover:text-slate-600">+ Add</button>`}</td>
         <td class="p-3"><button onclick="deleteExpense(${idx})" class="rmp-btn text-rose-500 font-bold hover:text-rose-700">✕</button></td>
       </tr>
     `;
@@ -1021,9 +1094,9 @@ function attachReceipt(idx) {
   pickImage(800, d => { ledger[idx].receipt = d; save('ledger', ledger); renderLedger(); toast('Receipt saved'); });
 }
 
-function viewPhoto(src, idx) {
+function viewPhoto(idx) {
   activeReceiptIdx = idx;
-  $('photo-big').src = src;
+  $('photo-big').src = ledger[idx].receipt;
   $('photo-modal').classList.remove('hidden');$('photo-modal').classList.add('flex');
 }
 
@@ -1056,6 +1129,8 @@ function renderGPA() {
         <option value="8" ${c.pts == 8 ? 'selected' : ''}>A</option>
         <option value="7" ${c.pts == 7 ? 'selected' : ''}>B+</option>
         <option value="6" ${c.pts == 6 ? 'selected' : ''}>B</option>
+        <option value="5" ${c.pts == 5 ? 'selected' : ''}>C</option>
+        <option value="0" ${c.pts == 0 ? 'selected' : ''}>F</option>
       </select>
       <input type="number" value="${c.cr}" min="1" onchange="updateCourse(${i},'cr',this.value)" class="w-14 px-2 py-1.5 rounded-xl border text-xs">
       <button onclick="removeCourse(${i})" class="rmp-btn text-rose-500 font-bold px-1">✕</button>
@@ -1083,7 +1158,7 @@ function renderExams() {
   `).join('');
 }
 function addExam() {
-  const n = $('exam-name').value, d =$('exam-date').value;
+  const n = $('exam-name').value, d = $('exam-date').value;
   if (!n || !d) return;
   exams.push({ name: n, date: d }); save('exams', exams); renderExams();
   $('exam-name').value = '';$('exam-date').value = '';
@@ -1119,7 +1194,7 @@ function renderIdeas() {
   `).join('');
 }
 function submitNewIdea() {
-  const t = $('new-title').value.trim(), c = $('new-category').value, d =$('new-desc').value.trim();
+  const t = $('new-title').value.trim(), c = $('new-category').value, d = $('new-desc').value.trim();
   if (!t || !d) { toast('Please complete all fields'); return; }
   ideas.push({ title: t, cat: c, desc: d });
   save('ideas', ideas);
@@ -1128,11 +1203,143 @@ function submitNewIdea() {
   toast('Campus idea added to Prob box!');
 }
 
+/* ---------- HOME DASHBOARD ---------- */
+let student = load('student', { name: 'Student', roll: '22CS1001', dept: 'CSE Core', year: '1st Year', sec: 'Section C', mode: 'Hostel', email: 'student@campusnex.edu', mentor: 'Dr. Mentor' });
+let subjAtt = load('subj_att', [
+  { name: 'Data Structures', a: 38, h: 42 },
+  { name: 'Operating Systems', a: 30, h: 40 },
+  { name: 'Database Systems', a: 33, h: 38 },
+  { name: 'Computer Networks', a: 25, h: 36 },
+  { name: 'Web Dev Lab', a: 18, h: 20 }
+]);
+
+const attColor = p => p >= 75 ? ['bg-emerald-500', 'text-emerald-700'] : p >= 65 ? ['bg-amber-500', 'text-amber-700'] : ['bg-rose-500', 'text-rose-700'];
+const toMin = t => { const [hm, ap] = t.split(' '); let [h, m] = hm.split(':').map(Number); if (ap === 'PM' && h !== 12) h += 12; if (ap === 'AM' && h === 12) h = 0; return h * 60 + m; };
+
+function toggleProfileEdit() {
+  const box = $('profile-edit');
+  box.classList.toggle('hidden');
+  if (!box.classList.contains('hidden')) {
+    $('pf-name').value = student.name; $('pf-roll').value = student.roll;
+    $('pf-dept').value = student.dept; $('pf-year').value = student.year;
+    $('pf-sec').value = student.sec; $('pf-mode').value = student.mode;
+    $('pf-email').value = student.email; $('pf-mentor').value = student.mentor;
+  }
+}
+
+function saveProfile() {
+  student = {
+    name: $('pf-name').value.trim() || 'Student', roll: $('pf-roll').value.trim(),
+    dept: $('pf-dept').value, year: $('pf-year').value, sec: $('pf-sec').value,
+    mode: $('pf-mode').value, email: $('pf-email').value.trim(), mentor: $('pf-mentor').value.trim()
+  };
+  save('student', student);
+  $('profile-edit').classList.add('hidden');
+  renderHome();
+  toast('✅ Profile updated');
+}
+
+function markAtt(i, present) {
+  subjAtt[i].h++; if (present) subjAtt[i].a++;
+  save('subj_att', subjAtt);
+  renderHome();
+}
+
+function renderHome() {
+  const now = new Date(), hr = now.getHours();
+  $('home-greet').textContent = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+  $('home-name').textContent = student.name.split(' ')[0];
+  $('home-date').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  $('home-sub').textContent = `${student.dept} • ${student.year} • ${student.sec}`;
+
+  // Attendance totals
+  const A = subjAtt.reduce((s, x) => s + x.a, 0), H = subjAtt.reduce((s, x) => s + x.h, 0);
+  const overall = H ? (A / H) * 100 : 0;
+
+  // GPA
+  let tp = 0, tc = 0; courses.forEach(c => { tp += c.pts * c.cr; tc += Number(c.cr); });
+  const gpa = tc ? (tp / tc).toFixed(2) : '0.00';
+
+  // Exams
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const upcoming = exams.map(e => ({ ...e, days: Math.ceil((new Date(e.date) - today) / 864e5) }))
+    .filter(e => e.days >= 0).sort((a, b) => a.days - b.days);
+  const pending = todos.filter(t => !t.done).length;
+  const spent = ledger.reduce((s, x) => s + Number(x.amt), 0);
+
+  const stat = (icon, label, val, sub, tint) => `
+    <div class="rmp-card bg-white p-5 rounded-3xl border border-orange-100 shadow-sm rmp-enter">
+      <div class="w-10 h-10 rounded-2xl ${tint} flex items-center justify-center text-lg mb-3">${icon}</div>
+      <p class="text-xs text-slate-500 font-semibold">${label}</p>
+      <p class="text-2xl font-extrabold text-slate-900 mt-0.5">${val}</p>
+      <p class="text-[11px] text-slate-500 mt-0.5">${sub}</p>
+    </div>`;
+  $('home-stats').innerHTML =
+    stat('📊', 'Overall attendance', overall.toFixed(1) + '%', overall >= 75 ? 'You are in the safe zone' : 'Below 75% — attend more!', 'bg-emerald-100') +
+    stat('🎓', 'Current GPA', gpa, `${courses.length} subjects tracked`, 'bg-blue-100') +
+    stat('✅', 'Pending tasks', pending, upcoming.length ? `Next exam in ${upcoming[0].days} day(s)` : 'No exams scheduled', 'bg-amber-100') +
+    stat('💰', 'Total spent', inr(spent), `🌱 ${mealsSavedCount} meals saved`, 'bg-orange-100');
+
+  // Profile
+  const initials = student.name.split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'S';
+  const row = (k, v) => `<div class="flex justify-between text-xs py-2 border-b border-slate-100 last:border-0"><span class="text-slate-500 font-medium">${k}</span><span class="font-semibold text-slate-900 text-right">${esc(v || '—')}</span></div>`;
+  $('home-profile').innerHTML = `
+    <div class="flex items-center gap-3 mb-3">
+      <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 text-white text-xl font-extrabold flex items-center justify-center overflow-hidden shadow-md">${avatar ? `<img src="${avatar}" alt="Profile" class="w-full h-full object-cover">` : esc(initials)}</div>
+      <div><p class="font-bold text-slate-900">${esc(student.name)}</p><p class="text-xs text-orange-600 font-semibold">${esc(student.roll)}</p></div>
+    </div>
+    ${row('Department', student.dept)}${row('Year', student.year)}${row('Section', student.sec)}
+    ${row('Residence', student.mode)}${row('Mentor', student.mentor)}${row('Email', student.email)}`;
+
+  // Attendance bars
+  const [, oTxt] = attColor(overall);
+  const badge = $('home-att-badge');
+  badge.textContent = `Overall ${overall.toFixed(1)}% (${A}/${H})`;
+  badge.className = `text-xs font-bold px-3 py-1 rounded-full border border-slate-200 ${oTxt}`;
+  $('home-attendance').innerHTML = subjAtt.map((s, i) => {
+    const p = s.h ? (s.a / s.h) * 100 : 0, [bar, txt] = attColor(p);
+    return `
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between gap-2 text-xs">
+          <span class="font-semibold text-slate-800 truncate">${esc(s.name)}</span>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="font-bold ${txt}">${p.toFixed(0)}% <span class="text-slate-400 font-medium">(${s.a}/${s.h})</span></span>
+            <button onclick="markAtt(${i}, true)" aria-label="Mark present" class="rmp-btn w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 font-bold hover:bg-emerald-200">✓</button>
+            <button onclick="markAtt(${i}, false)" aria-label="Mark absent" class="rmp-btn w-6 h-6 rounded-lg bg-rose-100 text-rose-700 font-bold hover:bg-rose-200">✕</button>
+          </div>
+        </div>
+        <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="${bar} h-full rounded-full" style="width:${Math.min(100, p)}%"></div></div>
+      </div>`;
+  }).join('');
+
+  // Today's schedule (from your timetable data)
+  const classes = scheduleDatabase[student.dept]?.[student.sec] || [];
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const nextIdx = classes.findIndex(c => toMin(c.time) + 105 > nowMin);
+  $('home-schedule').innerHTML = classes.length ? classes.map((c, i) => `
+    <div class="p-3 rounded-2xl border ${i === nextIdx ? 'border-orange-400 bg-orange-50/70' : 'border-slate-100 bg-slate-50'} text-xs">
+      <div class="flex justify-between"><span class="font-bold text-orange-600">${c.time}</span>${i === nextIdx ? '<span class="text-[10px] font-bold text-orange-700">NEXT UP</span>' : ''}</div>
+      <p class="font-bold text-slate-900 mt-0.5">${esc(c.sub)}</p>
+      <p class="text-[10px] text-slate-500">📍 ${esc(c.room)}</p>
+    </div>`).join('') : '<p class="text-xs text-slate-500">No classes found for your section.</p>';
+
+  // Exams
+  $('home-exams').innerHTML = upcoming.length ? upcoming.slice(0, 4).map(e => `
+    <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+      <div><p class="font-bold text-slate-900">${esc(e.name)}</p><p class="text-[10px] text-slate-500">${e.date}</p></div>
+      <span class="font-extrabold ${e.days <= 3 ? 'text-rose-600' : 'text-orange-600'}">${e.days === 0 ? 'Today' : e.days + 'd'}</span>
+    </div>`).join('') : '<p class="text-xs text-slate-500">No upcoming exams. Add one in Student Tools.</p>';
+
+  // Quick actions
+  const qa = [['🍔', 'Order food', 'canteen'], ['🚌', 'Track bus', 'bus'], ['📅', 'Timetable', 'academic'], ['💰', 'Ledger', 'finance'], ['🎓', 'Tools', 'tools'], ['💡', 'Prob box', 'submit']];
+  $('home-actions').innerHTML = qa.map(([ic, l, t]) => `
+    <button onclick="switchTab('${t}')" class="rmp-btn p-3 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-orange-50 hover:border-orange-200 text-xs font-semibold text-slate-700 flex flex-col items-center gap-1"><span class="text-xl">${ic}</span>${l}</button>`).join('');
+}
+
 /* ---------- Init ---------- */
 window.addEventListener('DOMContentLoaded', () => {
   applyDark();
   renderAvatar();
-  switchTab(load('tab', 'canteen'));
   renderCanteen(false);
   renderBus();
   checkHostelAuth();
@@ -1143,6 +1350,8 @@ window.addEventListener('DOMContentLoaded', () => {
   renderExams();
   renderTodos();
   renderIdeas();
+  switchTab(load('tab', 'home'));
+  renderHome();
 });
 </script>
 </body>
