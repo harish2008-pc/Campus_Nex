@@ -77,6 +77,7 @@
         <button id="avatar-del" onclick="removeAvatar()" aria-label="Remove profile photo" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-slate-900 text-white text-[9px] leading-none hover:bg-rose-600">✕</button>
       </div>
       <button id="dark-btn" onclick="toggleDark()" aria-label="Toggle dark mode" class="rmp-btn w-9 h-9 rounded-xl bg-slate-100 text-lg shrink-0 hover:bg-slate-200">🌙</button>
+      <button onclick="logout()" aria-label="Log out" title="Log out" class="rmp-btn h-9 px-3 rounded-xl bg-slate-900 text-white text-xs font-bold shrink-0 hover:bg-rose-600">Log out</button>
     </div>
   </div>
 </header>
@@ -433,6 +434,58 @@
   </section>
 </main>
 
+<!-- AUTH SCREEN -->
+<div id="auth-screen" class="hidden fixed inset-0 z-[200] bg-gradient-to-br from-slate-900 via-slate-800 to-orange-700 overflow-y-auto p-4">
+  <div class="min-h-full flex items-center justify-center">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-7 space-y-5">
+      <div class="text-center space-y-1">
+        <div class="logo-box h-14 w-14 mx-auto rounded-2xl flex items-center justify-center p-2 shadow-md">
+          <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="50" cy="55" rx="45" ry="12" fill="none" stroke="currentColor" stroke-width="6" transform="rotate(-15 50 55)"/>
+            <path d="M 65 25 A 35 35 0 1 0 65 75" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+            <path d="M 50 35 L 50 65 L 75 35 L 75 65" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 32 50 L 32 60 L 42 60 L 42 50 Z M 37 42 L 32 47 L 42 47 Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">CAMPUS NEX</h2>
+        <p class="text-xs text-slate-500">Sign in to open your campus companion</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 bg-slate-100 p-1 rounded-2xl">
+        <button id="auth-tab-login" onclick="showAuthTab('login')" class="rmp-btn py-2 rounded-xl text-xs font-bold">Log in</button>
+        <button id="auth-tab-register" onclick="showAuthTab('register')" class="rmp-btn py-2 rounded-xl text-xs font-bold">Create account</button>
+      </div>
+
+      <p id="auth-msg" class="hidden text-xs font-semibold p-3 rounded-xl border" role="alert"></p>
+
+      <form id="login-form" class="space-y-3" onsubmit="doLogin(event)">
+        <div><label for="li-id" class="text-xs font-semibold text-slate-600">Roll number or email</label>
+          <input id="li-id" required autocomplete="username" class="w-full mt-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-orange-500/50"></div>
+        <div><label for="li-pw" class="text-xs font-semibold text-slate-600">Password</label>
+          <input id="li-pw" type="password" required autocomplete="current-password" class="w-full mt-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-orange-500/50"></div>
+        <button class="rmp-btn w-full bg-orange-600 text-white font-semibold py-3 rounded-xl shadow-md hover:bg-orange-700">Log in</button>
+      </form>
+
+      <form id="register-form" class="hidden space-y-3" onsubmit="doRegister(event)">
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <input id="rg-name" required placeholder="Full name" aria-label="Full name" class="col-span-2 px-3 py-2.5 rounded-xl border border-slate-200">
+          <input id="rg-roll" required placeholder="Roll number" aria-label="Roll number" class="px-3 py-2.5 rounded-xl border border-slate-200">
+          <input id="rg-email" required type="email" placeholder="Email" aria-label="Email" class="px-3 py-2.5 rounded-xl border border-slate-200">
+          <select id="rg-dept" aria-label="Department" class="px-3 py-2.5 rounded-xl border border-slate-200 bg-white"><option>CSE Core</option><option>CSE AIML</option><option>IT</option><option>ECE</option></select>
+          <select id="rg-year" aria-label="Year" class="px-3 py-2.5 rounded-xl border border-slate-200 bg-white"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+          <select id="rg-sec" aria-label="Section" class="px-3 py-2.5 rounded-xl border border-slate-200 bg-white"><option>Section A</option><option>Section B</option><option>Section C</option><option>Section D</option></select>
+          <select id="rg-mode" aria-label="Residence" class="px-3 py-2.5 rounded-xl border border-slate-200 bg-white"><option>Hostel</option><option>Day Scholar</option></select>
+          <input id="rg-pw" required type="password" minlength="6" autocomplete="new-password" placeholder="Password (min 6)" aria-label="Password" class="px-3 py-2.5 rounded-xl border border-slate-200">
+          <input id="rg-pw2" required type="password" minlength="6" autocomplete="new-password" placeholder="Confirm password" aria-label="Confirm password" class="px-3 py-2.5 rounded-xl border border-slate-200">
+        </div>
+        <button class="rmp-btn w-full bg-orange-600 text-white font-semibold py-3 rounded-xl shadow-md hover:bg-orange-700">Create account</button>
+      </form>
+
+      <p class="text-[11px] text-center text-slate-400">Accounts are stored only in this browser. Demo-level login, not server security.</p>
+    </div>
+  </div>
+</div>
+
 <!-- Payment modal -->
 <div id="payment-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-all duration-300" onclick="if(event.target===this)closeModal()" role="dialog" aria-modal="true" aria-labelledby="modal-item-title">
   <div class="bg-white max-w-md w-full p-6 rounded-3xl space-y-4 shadow-2xl max-h-[95vh] overflow-y-auto rmp-slide-up">
@@ -483,8 +536,10 @@
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const inr = n => '₹' + Number(n).toLocaleString('en-IN');
-const load = (k, d) => { try { const v = localStorage.getItem('cn_' + k); return v ? JSON.parse(v) : d; } catch { return d; } };
-const save = (k, v) => { try { localStorage.setItem('cn_' + k, JSON.stringify(v)); } catch { toast('Storage is full. Remove a photo and try again.'); } };
+const SESSION = (() => { try { return localStorage.getItem('cn_session'); } catch { return null; } })();
+const PFX = SESSION ? 'cnu_' + SESSION + '_' : 'cn_guest_';
+const load = (k, d) => { try { const v = localStorage.getItem(PFX + k); return v ? JSON.parse(v) : d; } catch { return d; } };
+const save = (k, v) => { try { localStorage.setItem(PFX + k, JSON.stringify(v)); } catch { toast('Storage is full. Remove a photo and try again.'); } };
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function play(el, cls) { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
@@ -1340,8 +1395,94 @@ function renderHome() {
     <button onclick="switchTab('${t}')" class="rmp-btn p-3 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-orange-50 hover:border-orange-200 text-xs font-semibold text-slate-700 flex flex-col items-center gap-1"><span class="text-xl">${ic}</span>${l}</button>`).join('');
 }
 
+/* ---------- AUTH ---------- */
+const getAccounts = () => { try { return JSON.parse(localStorage.getItem('cn_accounts')) || []; } catch { return []; } };
+const setAccounts = a => localStorage.setItem('cn_accounts', JSON.stringify(a));
+const userId = roll => roll.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+
+async function hashPw(pw, salt) {
+  const data = new TextEncoder().encode(salt + ':' + pw);
+  if (window.crypto && crypto.subtle) {
+    const buf = await crypto.subtle.digest('SHA-256', data);
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+  let h = 5381; for (const b of data) h = ((h << 5) + h + b) | 0;
+  return 'f' + (h >>> 0).toString(16);
+}
+
+function authMsg(text, ok) {
+  const m = $('auth-msg');
+  m.textContent = text;
+  m.className = 'text-xs font-semibold p-3 rounded-xl border ' + (ok ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-rose-50 border-rose-200 text-rose-700');
+}
+
+function showAuthTab(which) {
+  const login = which === 'login';
+  $('login-form').classList.toggle('hidden', !login);
+  $('register-form').classList.toggle('hidden', login);
+  $('auth-msg').classList.add('hidden');
+  $('auth-tab-login').className = 'rmp-btn py-2 rounded-xl text-xs font-bold ' + (login ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500');
+  $('auth-tab-register').className = 'rmp-btn py-2 rounded-xl text-xs font-bold ' + (!login ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500');
+}
+
+async function doRegister(e) {
+  e.preventDefault();
+  const name = $('rg-name').value.trim(), roll = $('rg-roll').value.trim(), email = $('rg-email').value.trim().toLowerCase();
+  const pw = $('rg-pw').value, pw2 = $('rg-pw2').value, id = userId(roll);
+  const fail = t => { $('auth-msg').classList.remove('hidden'); authMsg(t, false); };
+  if (!id) return fail('Enter a valid roll number.');
+  if (pw.length < 6) return fail('Password must be at least 6 characters.');
+  if (pw !== pw2) return fail('Passwords do not match.');
+  const accounts = getAccounts();
+  if (accounts.some(a => a.id === id || a.email === email)) return fail('An account with this roll number or email already exists.');
+
+  const salt = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const hash = await hashPw(pw, salt);
+  const first = accounts.length === 0;
+  accounts.push({ id, name, roll, email, salt, hash });
+  setAccounts(accounts);
+
+  const userPfx = 'cnu_' + id + '_';
+  // First account inherits any data saved before login existed
+  if (first) {
+    ['dark_mode','avatar','tab','foodphotos','hostel_login','mess_status','meals_saved','chats','ledger','courses','exams','todos','ideas','subj_att'].forEach(k => {
+      const old = localStorage.getItem('cn_' + k);
+      if (old !== null && localStorage.getItem(userPfx + k) === null) localStorage.setItem(userPfx + k, old);
+    });
+  }
+  localStorage.setItem(userPfx + 'student', JSON.stringify({
+    name, roll, email, dept: $('rg-dept').value, year: $('rg-year').value, sec: $('rg-sec').value,
+    mode: $('rg-mode').value, mentor: 'Dr. Mentor'
+  }));
+  localStorage.setItem('cn_session', id);
+  location.reload();
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  const key = $('li-id').value.trim().toLowerCase(), pw = $('li-pw').value;
+  const acc = getAccounts().find(a => a.id === userId(key) || a.email === key);
+  $('auth-msg').classList.remove('hidden');
+  if (!acc || (await hashPw(pw, acc.salt)) !== acc.hash) { authMsg('Wrong roll number/email or password.', false); return; }
+  localStorage.setItem('cn_session', acc.id);
+  location.reload();
+}
+
+function logout() {
+  localStorage.removeItem('cn_session');
+  location.reload();
+}
+
 /* ---------- Init ---------- */
 window.addEventListener('DOMContentLoaded', () => {
+  if (!SESSION || !getAccounts().some(a => a.id === SESSION)) {
+    localStorage.removeItem('cn_session');
+    $('auth-screen').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    showAuthTab(getAccounts().length ? 'login' : 'register');
+    if (SESSION) location.reload();
+    return;
+  }
   applyDark();
   renderAvatar();
   renderCanteen(false);
